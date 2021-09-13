@@ -6,35 +6,27 @@ where delivery_id = 36720859
 
 
 Delivery Interface Statuses:
-
 CR (CREATION_REQUIRED): Delivery must be created in Oracle Transportation Management (OTM)
-
 UR (UPDATE_REQUIRED): Delivery has been updated and must be sent to OTM.
-
 DR(DELETE_REQUIRED): Delivery has been emptied or has been ignored for planning (no delivery lines or delivery lines with empty LPNs only) and must be deleted in OTM.
-
 AW (AWAITING_ANSWER): Create or Update has taken place on a delivery and an answer is expected from OTM.
-
 AR (ANSWER_RECEIVED): An answer has been received from OTM
-
 NS (NOT_TO_BE_SENT): Delivery is either Ignore for Planning or has no delivery lines (or has delivery lines empty LPNs)
-
 CMP (COMPLETED: Delivery has been ship confirmed and pick up trip stops are closed
-
 CP (CREATE_IN_PROCESS): Creation is in process
-
 UP (UPDATE_IN_PROCESS): Update is in process
-
 DP (DELETE_IN_PROCESS): Deletion is in process
 
  
 
 Trip Stops Interface Statuses:
-
 ASR (ACTUAL_SHIP_REQUIRED): Last pickup trip stop is set to this status after it is closed.
-
 CMP (COMPLETED): Last pickup trip stop is set to this status once the ActualShipment transaction has been sent to OTM.
-
 ASP (Shipment in Process): The trip and stop is in the process of being sent to OTM.
-
 NS (NOT TO BE SENT): Used when a trip stop is not to be sent to Oracle Transportation Management.
+
+MASTER data to be sent
+----------------------
+update apps.WSH_OTM_SYNC_REF_DATA
+set last_sent_date = sysdate - 30 where entity_type = 'CUST_LOC' and last_update_date > sysdate - 10
+
